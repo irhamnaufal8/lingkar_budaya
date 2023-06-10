@@ -6,6 +6,7 @@ import 'package:lingkar_budaya/common/resources/fonts.dart';
 import 'package:lingkar_budaya/feature/home/home_screen.dart';
 import 'package:lingkar_budaya/feature/materi/materi_screen.dart';
 import 'package:lingkar_budaya/feature/profile/profile_screen.dart';
+import 'package:lingkar_budaya/feature/testimoni/testimoni_screen.dart';
 
 class AppNavigationBar extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _NavigationBarState extends State<AppNavigationBar> {
         setState(() {
           currentTab = 1;
         });
-      }), MateriScreen(), Text('Testimoni'), ProfileScreen()
+      }), MateriScreen(), TestimoniScreen(), ProfileScreen()
     ];
   }
 
