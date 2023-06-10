@@ -280,6 +280,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                             (reviewData.comment ?? "").isEmpty,
                         onTap: () {
                           Navigator.pop(context);
+                          _showDialog();
                         },
                       )
                     ],
@@ -289,5 +290,47 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
             );
           });
         });
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          alignment: Alignment.center,
+          icon: Icon(
+            Icons.task_alt,
+            size: 80,
+          ),
+          iconColor: Colors.green,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Text(
+            'Testimoni Berhasil Terkirim!',
+            style: Poppins.bold(20),
+            textAlign: TextAlign.center,
+          ),
+          content: Text(
+            'Testimoni kamu berhasil di posting, klik Okay untuk menutup.',
+            style: Poppins.regular(14),
+            textAlign: TextAlign.center,
+          ),
+          insetPadding: EdgeInsets.all(20),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+              child: PrimaryButton(
+                text: "Okay",
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 }
