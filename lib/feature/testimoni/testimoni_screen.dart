@@ -93,38 +93,21 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              children: [
-                Icon(
-                  Icons.star,
-                  color: (data.ratingStar ?? 0) >= 1
-                      ? BaseColors.softBrown
-                      : BaseColors.inActiveGrey,
-                ),
-                Icon(
-                  Icons.star,
-                  color: (data.ratingStar ?? 0) >= 2
-                      ? BaseColors.softBrown
-                      : BaseColors.inActiveGrey,
-                ),
-                Icon(
-                  Icons.star,
-                  color: (data.ratingStar ?? 0) >= 3
-                      ? BaseColors.softBrown
-                      : BaseColors.inActiveGrey,
-                ),
-                Icon(
-                  Icons.star,
-                  color: (data.ratingStar ?? 0) >= 4
-                      ? BaseColors.softBrown
-                      : BaseColors.inActiveGrey,
-                ),
-                Icon(
-                  Icons.star,
-                  color: (data.ratingStar ?? 0) >= 5
-                      ? BaseColors.softBrown
-                      : BaseColors.inActiveGrey,
-                )
-              ],
+              children: List<Widget>.generate(5, (index) {
+                return Row(
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: (data.ratingStar ?? 0) >= (index + 1)
+                          ? BaseColors.softBrown
+                          : BaseColors.inActiveGrey,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    )
+                  ],
+                );
+              }),
             ),
             SizedBox(
               height: 12,
@@ -231,81 +214,28 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                         height: 12,
                       ),
                       Row(
-                        children: [
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  reviewData.ratingStar = 1;
-                                });
-                              },
-                              child: Icon(
-                                Icons.star,
-                                color: (reviewData.ratingStar ?? 0) >= 1
-                                    ? BaseColors.softBrown
-                                    : BaseColors.inActiveGrey,
-                              )),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  reviewData.ratingStar = 2;
-                                });
-                              },
-                              child: Icon(
-                                Icons.star,
-                                color: (reviewData.ratingStar ?? 0) >= 2
-                                    ? BaseColors.softBrown
-                                    : BaseColors.inActiveGrey,
-                              )),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  reviewData.ratingStar = 3;
-                                });
-                              },
-                              child: Icon(
-                                Icons.star,
-                                color: (reviewData.ratingStar ?? 0) >= 3
-                                    ? BaseColors.softBrown
-                                    : BaseColors.inActiveGrey,
-                              )),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  reviewData.ratingStar = 4;
-                                });
-                              },
-                              child: Icon(
-                                Icons.star,
-                                color: (reviewData.ratingStar ?? 0) >= 4
-                                    ? BaseColors.softBrown
-                                    : BaseColors.inActiveGrey,
-                              )),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  reviewData.ratingStar = 5;
-                                });
-                              },
-                              child: Icon(
-                                Icons.star,
-                                color: (reviewData.ratingStar ?? 0) >= 5
-                                    ? BaseColors.softBrown
-                                    : BaseColors.inActiveGrey,
-                              ))
-                        ],
-                      ),
+                          children: List<Widget>.generate(5, (index) {
+                        return Row(
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    reviewData.ratingStar = (index + 1);
+                                  });
+                                },
+                                child: Icon(
+                                  Icons.star,
+                                  color: (reviewData.ratingStar ?? 0) >=
+                                          (index + 1)
+                                      ? BaseColors.softBrown
+                                      : BaseColors.inActiveGrey,
+                                )),
+                            SizedBox(
+                              width: 5,
+                            ),
+                          ],
+                        );
+                      })),
                       SizedBox(
                         height: 20,
                       ),
