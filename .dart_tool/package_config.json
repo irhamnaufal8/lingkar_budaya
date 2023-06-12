@@ -122,6 +122,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "plugin_platform_interface",
+      "rootUri": "file:///Users/garry/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/garry/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -170,6 +176,30 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "webview_flutter",
+      "rootUri": "file:///Users/garry/.pub-cache/hosted/pub.dev/webview_flutter-2.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "webview_flutter_android",
+      "rootUri": "file:///Users/garry/.pub-cache/hosted/pub.dev/webview_flutter_android-2.10.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "webview_flutter_platform_interface",
+      "rootUri": "file:///Users/garry/.pub-cache/hosted/pub.dev/webview_flutter_platform_interface-1.9.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "webview_flutter_wkwebview",
+      "rootUri": "file:///Users/garry/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-2.9.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "xml",
       "rootUri": "file:///Users/garry/.pub-cache/hosted/pub.dev/xml-5.4.1",
       "packageUri": "lib/",
@@ -182,7 +212,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-06-06T03:18:05.550070Z",
+  "generated": "2023-06-11T11:12:00.577973Z",
   "generator": "pub",
   "generatorVersion": "3.0.1"
 }

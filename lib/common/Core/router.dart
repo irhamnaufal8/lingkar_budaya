@@ -3,6 +3,7 @@ import 'package:lingkar_budaya/feature/auth/auth_view.dart';
 import 'package:lingkar_budaya/feature/home/home_screen.dart';
 import 'package:lingkar_budaya/feature/materi/detail_materi_screen.dart';
 import 'package:lingkar_budaya/feature/materi/materi_screen.dart';
+import 'package:lingkar_budaya/feature/materi/quiz_screen.dart';
 import 'package:lingkar_budaya/feature/navigation_bar/navigation_bar.dart';
 import 'package:lingkar_budaya/feature/onboarding/onboarding.dart';
 import 'package:lingkar_budaya/feature/profile/faq_screen.dart';
@@ -18,6 +19,7 @@ class AppRouter {
   static const testimoni = '/testimoni';
   static const faq = '/faq';
   static const detailMateri = '/detail_materi';
+  static const quiz = '/quiz';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -45,6 +47,9 @@ class AppRouter {
         final DummyMateriData data = settings.arguments as DummyMateriData;
         return MaterialPageRoute(
             builder: (_) => DetailMateriScreen(data: data));
+      case quiz:
+        final DummyMateriData data = settings.arguments as DummyMateriData;
+        return MaterialPageRoute(builder: (_) => QuizScreen(data: data));
       default:
         final bool isRegistering = settings.arguments as bool;
         return MaterialPageRoute(

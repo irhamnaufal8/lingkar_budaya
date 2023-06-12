@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lingkar_budaya/common/Core/router.dart';
 import 'package:lingkar_budaya/common/resources/colors.dart';
 import 'package:lingkar_budaya/common/resources/fonts.dart';
 import 'package:lingkar_budaya/feature/materi/materi_screen.dart';
@@ -109,7 +110,8 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
                     child: InkWell(
                       splashColor: Colors.white.withOpacity(0.7),
                       onTap: () {
-                        print('Tap Quiz ${index + 1}');
+                        Navigator.of(context)
+                            .pushNamed(AppRouter.quiz, arguments: data);
                       },
                       borderRadius: BorderRadius.circular(6),
                       child: Padding(
@@ -144,15 +146,11 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
 
   Widget buildBackButton() {
     return SafeArea(
-      child: Positioned(
-        top: 0,
-        left: 0,
-        child: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+      child: IconButton(
+        icon: Icon(Icons.arrow_back_ios),
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }

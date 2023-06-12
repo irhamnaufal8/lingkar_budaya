@@ -9,13 +9,15 @@ class DummyMateriData {
   String description;
   int totalArticle;
   int totalQuiz;
+  String quizURL;
 
   DummyMateriData(
       {required this.imagePath,
       required this.name,
       required this.description,
       required this.totalArticle,
-      required this.totalQuiz});
+      required this.totalQuiz,
+      required this.quizURL});
 }
 
 class MateriScreen extends StatefulWidget {
@@ -31,28 +33,32 @@ class _MateriScreenState extends State<MateriScreen> {
         description:
             '“Unang hosom roham tujolma nahasea, ala dang taboto aha na dikorbanhon lao mencapai hasonangon i”',
         totalArticle: 2,
-        totalQuiz: 1),
+        totalQuiz: 1,
+        quizURL: 'https://forms.gle/WFMjaL4A2RHtNw9u8'),
     DummyMateriData(
         imagePath: 'assets/image/img_dummy_2.png',
         name: 'DKI Jakarta',
         description:
             '“Kalo emang ente mau nantangin, eh aye sanggup biar ada perlawanan.”',
         totalArticle: 2,
-        totalQuiz: 1),
+        totalQuiz: 1,
+        quizURL: 'https://forms.gle/yKisQhoyP7mQ9LsC8'),
     DummyMateriData(
         imagePath: 'assets/image/img_dummy_3.png',
         name: 'Jawa Tengah',
         description:
             '“Unang hosom roham tujolma nahasea, ala dang taboto aha na dikorbanhon lao mencapai hasonangon i”',
         totalArticle: 2,
-        totalQuiz: 1),
+        totalQuiz: 1,
+        quizURL: 'https://forms.gle/FkK1zHGh9K8sDSqc7'),
     DummyMateriData(
         imagePath: 'assets/image/img_dummy_4.png',
         name: 'Papua',
         description:
             '“Unang hosom roham tujolma nahasea, ala dang taboto aha na dikorbanhon lao mencapai hasonangon i”',
         totalArticle: 2,
-        totalQuiz: 1),
+        totalQuiz: 1,
+        quizURL: 'https://forms.gle/guHEKc3ru9QSTxGk9'),
   ];
 
   @override
