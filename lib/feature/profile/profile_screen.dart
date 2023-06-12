@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lingkar_budaya/common/Core/constants.dart';
 import 'package:lingkar_budaya/common/Core/router.dart';
 import 'package:lingkar_budaya/common/resources/colors.dart';
 import 'package:lingkar_budaya/common/resources/fonts.dart';
@@ -30,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Rich Andienty',
+                    name,
                     style: Poppins.bold(22, color: Colors.white),
                   ),
                   IconButton(

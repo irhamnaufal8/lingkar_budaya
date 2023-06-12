@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
+import "package:lingkar_budaya/common/Core/constants.dart";
 import "package:lingkar_budaya/common/components/button/primary_button.dart";
+import "package:lingkar_budaya/common/components/button/secondary_button.dart";
 import "package:lingkar_budaya/common/data/model/testimoni.dart";
 import "package:lingkar_budaya/common/data/repository/testimoni_repository.dart";
 import "package:lingkar_budaya/common/resources/colors.dart";
@@ -20,24 +22,6 @@ class TestimoniScreen extends StatefulWidget {
 }
 
 class _TestimoniScreenState extends State<TestimoniScreen> {
-  List<Review> dummyData = [
-    Review(
-        id: 1,
-        name: "Rich Andiety",
-        ratingStar: 5,
-        comment:
-            "Lingkar Budaya adalah website yang bagus dan inovatif karena bisa memberi wawasan luas tentang kebudayaan Indonesia"),
-    Review(id: 2, name: "Naufal", ratingStar: 3, comment: "Hmm bole laa"),
-    Review(id: 3, name: "Abdul", ratingStar: 4, comment: "Baguss"),
-    Review(
-        id: 4,
-        name: "Fadhly",
-        ratingStar: 5,
-        comment: "Bagus bangett saya sangat suka dengan UI nya"),
-    Review(id: 5, name: "Rizal", ratingStar: 4, comment: "Okeoke"),
-    Review(id: 6, name: "Rici", ratingStar: 4, comment: "bolee"),
-  ];
-
   final TestimoniRepository testimoniRepository = TestimoniRepository();
   List<Testimoni> testimonies = [];
 
@@ -45,13 +29,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
   void initState() {
     super.initState();
     if (testimonies.isEmpty) {
-      testimoniRepository.getTestimoniList().then((value) {
-        setState(() {
-          testimonies = value;
-        });
-      }).catchError((error) {
-        print(error.toString());
-      });
+      getTestimoniList();
     }
   }
 
@@ -91,7 +69,8 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                     return Padding(
                         padding:
                             EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: buildCard(testimonies[index]));
+                        child: buildCard(
+                            testimonies[testimonies.length - 1 - index]));
                   }),
             )
           ],
@@ -112,21 +91,72 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              children: List<Widget>.generate(5, (index) {
-                return Row(
-                  children: [
-                    Icon(
-                      Icons.star,
-                      color: (data.ratingStar ?? 0) >= (index + 1)
-                          ? BaseColors.softBrown
-                          : BaseColors.inActiveGrey,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    )
-                  ],
-                );
-              }),
+              children: [
+                Row(
+                  children: List<Widget>.generate(5, (index) {
+                    return Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: (data.ratingStar ?? 0) >= (index + 1)
+                              ? BaseColors.softBrown
+                              : BaseColors.inActiveGrey,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        )
+                      ],
+                    );
+                  }),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: PopupMenuButton<int>(
+                        itemBuilder: (context) => [
+                              PopupMenuItem(
+                                  value: 1,
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.edit),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text("Edit")
+                                    ],
+                                  )),
+                              PopupMenuItem(
+                                  value: 2,
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.delete),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text("Delete")
+                                    ],
+                                  ))
+                            ],
+                        onSelected: (value) {
+                          if (value == 1) {
+                            _showEditBottomSheet(context, data);
+                          } else if (value == 2) {
+                            _showDialog('Hapus Testimoni',
+                                'Apakah kamu yakin untuk menghapus testimoni ini?',
+                                buttonText: 'Hapus',
+                                doubleButton: true,
+                                isError: true, action: () {
+                              deleteTestimoni(data.id ?? 0);
+                            });
+                          }
+                        },
+                        icon: Icon(
+                          Icons.more_horiz,
+                          color: BaseColors.black2,
+                        )),
+                  ),
+                )
+              ],
             ),
             SizedBox(
               height: 12,
@@ -161,7 +191,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
   }
 
   void _showBottomSheet(BuildContext context) {
-    Review reviewData = Review(name: "Rich Andiety");
+    Testimoni testimoniData = Testimoni(name: name);
 
     showModalBottomSheet(
         context: context,
@@ -216,7 +246,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: Text(
-                              reviewData.name ?? "",
+                              name,
                               style: Poppins.medium(14),
                             ),
                           ),
@@ -239,12 +269,12 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                             InkWell(
                                 onTap: () {
                                   setState(() {
-                                    reviewData.ratingStar = (index + 1);
+                                    testimoniData.ratingStar = (index + 1);
                                   });
                                 },
                                 child: Icon(
                                   Icons.star,
-                                  color: (reviewData.ratingStar ?? 0) >=
+                                  color: (testimoniData.ratingStar ?? 0) >=
                                           (index + 1)
                                       ? BaseColors.softBrown
                                       : BaseColors.inActiveGrey,
@@ -277,7 +307,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                             child: TextField(
                               onChanged: (value) {
                                 setState(() {
-                                  reviewData.comment = value;
+                                  testimoniData.comment = value;
                                 });
                               },
                               maxLines: null,
@@ -295,11 +325,11 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                       ),
                       PrimaryButton(
                         text: "Kirim Testimoni",
-                        isDisable: (reviewData.ratingStar ?? 0) < 1 ||
-                            (reviewData.comment ?? "").isEmpty,
+                        isDisable: (testimoniData.ratingStar ?? 0) < 1 ||
+                            (testimoniData.comment ?? "").isEmpty,
                         onTap: () {
                           Navigator.pop(context);
-                          _showDialog();
+                          createTestimoni(testimoniData);
                         },
                       )
                     ],
@@ -311,27 +341,186 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
         });
   }
 
-  void _showDialog() {
+  void _showEditBottomSheet(BuildContext context, Testimoni testimoniData) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        backgroundColor: Colors.white,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return FractionallySizedBox(
+              heightFactor: 0.8,
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Edit',
+                            style: Poppins.bold(24),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.cancel,
+                              fill: null,
+                              color: BaseColors.borderGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        "Nama",
+                        style: Poppins.medium(12, color: BaseColors.black2),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: BaseColors.inputGrey,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(
+                                color: BaseColors.borderGrey, width: 1)),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Text(
+                              name,
+                              style: Poppins.medium(14),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 32,
+                      ),
+                      Text(
+                        "Pilih Rating",
+                        style: Poppins.medium(12, color: BaseColors.black2),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Row(
+                          children: List<Widget>.generate(5, (index) {
+                        return Row(
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    testimoniData.ratingStar = (index + 1);
+                                  });
+                                },
+                                child: Icon(
+                                  Icons.star,
+                                  color: (testimoniData.ratingStar ?? 0) >=
+                                          (index + 1)
+                                      ? BaseColors.softBrown
+                                      : BaseColors.inActiveGrey,
+                                )),
+                            SizedBox(
+                              width: 5,
+                            ),
+                          ],
+                        );
+                      })),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Tulis Komentar",
+                        style: Poppins.medium(12, color: BaseColors.black2),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Container(
+                        height: 290,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            border: Border.all(
+                                color: BaseColors.borderGrey, width: 1)),
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  testimoniData.comment = value;
+                                });
+                              },
+                              maxLines: null,
+                              style: Poppins.medium(14),
+                              decoration: InputDecoration(
+                                hintText: 'Tulis komentarmu di sini...',
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      PrimaryButton(
+                        text: "Edit Testimoni",
+                        isDisable: (testimoniData.ratingStar ?? 0) < 1 ||
+                            (testimoniData.comment ?? "").isEmpty,
+                        onTap: () {
+                          Navigator.pop(context);
+                          editTestimoni(testimoniData, testimoniData.id ?? 0);
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+        });
+  }
+
+  void _showDialog(String title, String description,
+      {String buttonText = 'Okay',
+      bool doubleButton = false,
+      bool isError = false,
+      Function? action}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           alignment: Alignment.center,
           icon: Icon(
-            Icons.task_alt,
+            isError ? Icons.warning : Icons.task_alt,
             size: 80,
           ),
-          iconColor: Colors.green,
+          iconColor: isError ? Colors.red : Colors.green,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
           title: Text(
-            'Testimoni Berhasil Terkirim!',
+            title,
             style: Poppins.bold(20),
             textAlign: TextAlign.center,
           ),
           content: Text(
-            'Testimoni kamu berhasil di posting, klik Okay untuk menutup.',
+            description,
             style: Poppins.regular(14),
             textAlign: TextAlign.center,
           ),
@@ -341,15 +530,84 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
               child: PrimaryButton(
-                text: "Okay",
+                text: buttonText,
                 onTap: () {
                   Navigator.pop(context);
+                  action!();
                 },
               ),
-            )
+            ),
+            doubleButton
+                ? Padding(
+                    padding:
+                        const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                    child: SecondaryButton(
+                      text: "Batal",
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  )
+                : Container(
+                    width: 0,
+                    height: 0,
+                  ),
           ],
         );
       },
     );
+  }
+
+  void getTestimoniList() {
+    testimoniRepository.getTestimoniList().then((value) {
+      setState(() {
+        testimonies = value;
+      });
+    }).catchError((error) {
+      print(error.toString());
+    });
+  }
+
+  void createTestimoni(Testimoni body) {
+    testimoniRepository.createTestimoni(body, () {
+      print('success create');
+      _showDialog('Testimoni Berhasil Terkirim!',
+          'Testimoni kamu berhasil di posting, klik Okay untuk menutup.',
+          action: () {
+        getTestimoniList();
+      });
+    }, () {
+      _showDialog('Testimoni Gagal Terkirim!',
+          'Testimoni kamu gagal di posting, klik Okay untuk menutup.',
+          isError: true);
+    });
+  }
+
+  void editTestimoni(Testimoni body, int id) {
+    testimoniRepository.editTestimoni(id, body, () {
+      _showDialog('Testimoni Berhasil di Edit!',
+          'Testimoni kamu berhasil di edit, klik Okay untuk menutup.',
+          action: () {
+        getTestimoniList();
+      });
+    }, () {
+      _showDialog('Testimoni Gagal di Edit!',
+          'Testimoni kamu gagal di edit, klik Okay untuk menutup.',
+          isError: true);
+    });
+  }
+
+  void deleteTestimoni(int id) {
+    testimoniRepository.deleteTestimoni('$id', () {
+      _showDialog('Testimoni Berhasil Dihapus!',
+          'Testimoni kamu berhasil dihapus, klik Okay untuk menutup.',
+          action: () {
+        getTestimoniList();
+      });
+    }, () {
+      _showDialog('Testimoni Gagal Dihapus!',
+          'Testimoni kamu gagal dihapus, klik Okay untuk menutup.',
+          isError: true);
+    });
   }
 }
