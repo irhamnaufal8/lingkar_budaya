@@ -45,7 +45,7 @@ class _FAQScreenState extends State<FAQScreen> {
         title: Text(
           'FAQ',
           style: TextStyle(
-              fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: BaseColors.primaryGreen,
         shadowColor: Colors.transparent,

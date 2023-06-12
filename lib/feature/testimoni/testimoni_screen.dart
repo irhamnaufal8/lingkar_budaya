@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:lingkar_budaya/common/components/button/primary_button.dart";
+import "package:lingkar_budaya/common/data/model/testimoni.dart";
+import "package:lingkar_budaya/common/data/repository/testimoni_repository.dart";
 import "package:lingkar_budaya/common/resources/colors.dart";
 import "package:lingkar_budaya/common/resources/fonts.dart";
 
@@ -36,6 +38,23 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
     Review(id: 6, name: "Rici", ratingStar: 4, comment: "bolee"),
   ];
 
+  final TestimoniRepository testimoniRepository = TestimoniRepository();
+  List<Testimoni> testimonies = [];
+
+  @override
+  void initState() {
+    super.initState();
+    if (testimonies.isEmpty) {
+      testimoniRepository.getTestimoniList().then((value) {
+        setState(() {
+          testimonies = value;
+        });
+      }).catchError((error) {
+        print(error.toString());
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,12 +86,12 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: dummyData.length,
+                  itemCount: testimonies.length,
                   itemBuilder: (context, index) {
                     return Padding(
                         padding:
                             EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: buildCard(dummyData[index]));
+                        child: buildCard(testimonies[index]));
                   }),
             )
           ],
@@ -81,7 +100,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
     );
   }
 
-  Widget buildCard(Review data) {
+  Widget buildCard(Testimoni data) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
