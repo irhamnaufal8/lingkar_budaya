@@ -31,6 +31,12 @@ class _PrimaryTextFieldState extends State<PrimaryTextField> {
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
+          onChanged: (value) {
+            setState(() {
+              getText(value);
+            });
+            // _textEditingController.text = value;
+          },
           controller: _textEditingController,
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -44,5 +50,9 @@ class _PrimaryTextFieldState extends State<PrimaryTextField> {
 
   String getValue() {
     return _textEditingController.text;
+  }
+
+  String getText(String text) {
+    return text;
   }
 }

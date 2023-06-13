@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lingkar_budaya/common/Core/constants.dart';
 import 'package:lingkar_budaya/common/Core/router.dart';
+import 'package:lingkar_budaya/common/data/model/user.dart';
+import 'package:lingkar_budaya/common/data/repository/auth_repository.dart';
 import 'package:lingkar_budaya/common/resources/colors.dart';
 import 'package:lingkar_budaya/common/resources/fonts.dart';
 
@@ -10,6 +12,15 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  AuthRepository authRepository = AuthRepository();
+  User? userData = User();
+
+  @override
+  void initState() {
+    super.initState();
+    getLocalUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    name,
+                    userData?.name ?? '',
                     style: Poppins.bold(22, color: Colors.white),
                   ),
                   IconButton(
@@ -136,7 +147,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.transparent),
                 child: InkWell(
                   onTap: () {
-                    Navigator.popUntil(context, (route) => route.isFirst);
+                    authRepository.deleteLocalUser().then((value) {
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    });
                   },
                   borderRadius: BorderRadius.circular(50),
                   splashColor: Colors.grey.withOpacity(0.7),
@@ -162,5 +175,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ]),
           ),
         ));
+  }
+
+  void getLocalUser() {
+    authRepository.getLocalUser().then((value) {
+      setState(() {
+        userData = value;
+        print('Current User Data');
+        print(userData);
+      });
+    }).catchError((error) {
+      print(error);
+    });
   }
 }

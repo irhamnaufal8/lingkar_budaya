@@ -3,6 +3,8 @@ import "package:lingkar_budaya/common/Core/constants.dart";
 import "package:lingkar_budaya/common/components/button/primary_button.dart";
 import "package:lingkar_budaya/common/components/button/secondary_button.dart";
 import "package:lingkar_budaya/common/data/model/testimoni.dart";
+import "package:lingkar_budaya/common/data/model/user.dart";
+import "package:lingkar_budaya/common/data/repository/auth_repository.dart";
 import "package:lingkar_budaya/common/data/repository/testimoni_repository.dart";
 import "package:lingkar_budaya/common/resources/colors.dart";
 import "package:lingkar_budaya/common/resources/fonts.dart";
@@ -25,12 +27,24 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
   final TestimoniRepository testimoniRepository = TestimoniRepository();
   List<Testimoni> testimonies = [];
 
+  AuthRepository authRepository = AuthRepository();
+  User? userData = User();
+
   @override
   void initState() {
     super.initState();
     if (testimonies.isEmpty) {
       getTestimoniList();
     }
+    authRepository.getLocalUser().then((value) {
+      setState(() {
+        userData = value;
+        print('Current User Data');
+        print(userData);
+      });
+    }).catchError((error) {
+      print(error);
+    });
   }
 
   @override
@@ -63,15 +77,18 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
               height: 24,
             ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: testimonies.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: buildCard(
-                            testimonies[testimonies.length - 1 - index]));
-                  }),
+              child: RefreshIndicator(
+                onRefresh: refreshTestimoniData,
+                child: ListView.builder(
+                    itemCount: testimonies.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                          child: buildCard(
+                              testimonies[testimonies.length - 1 - index]));
+                    }),
+              ),
             )
           ],
         ),
@@ -191,7 +208,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
   }
 
   void _showBottomSheet(BuildContext context) {
-    Testimoni testimoniData = Testimoni(name: name);
+    Testimoni testimoniData = Testimoni(name: userData?.name ?? '');
 
     showModalBottomSheet(
         context: context,
@@ -246,7 +263,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: Text(
-                              name,
+                              userData?.name ?? '',
                               style: Poppins.medium(14),
                             ),
                           ),
@@ -401,7 +418,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: Text(
-                              name,
+                              userData?.name ?? '',
                               style: Poppins.medium(14),
                             ),
                           ),
@@ -566,6 +583,10 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
     }).catchError((error) {
       print(error.toString());
     });
+  }
+
+  Future<void> refreshTestimoniData() async {
+    getTestimoniList();
   }
 
   void createTestimoni(Testimoni body) {

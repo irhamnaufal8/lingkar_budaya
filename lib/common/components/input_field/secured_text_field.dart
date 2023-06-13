@@ -32,6 +32,11 @@ class _SecuredTextFieldState extends State<SecuredTextField> {
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
+          onChanged: (value) {
+            setState(() {
+              _textEditingController.text = value;
+            });
+          },
           obscureText: !isVisible,
           style: Poppins.regular(14),
           decoration: InputDecoration(

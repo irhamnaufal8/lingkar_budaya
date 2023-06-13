@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lingkar_budaya/common/Core/constants.dart';
 import 'package:lingkar_budaya/common/Core/router.dart';
 import 'package:lingkar_budaya/common/components/button/primary_button.dart';
+import 'package:lingkar_budaya/common/components/button/secondary_button.dart';
 import 'package:lingkar_budaya/common/components/input_field/primary_text_field.dart';
 import 'package:lingkar_budaya/common/components/input_field/secured_text_field.dart';
+import 'package:lingkar_budaya/common/data/model/user.dart';
+import 'package:lingkar_budaya/common/data/repository/auth_repository.dart';
 import 'package:lingkar_budaya/common/resources/colors.dart';
 import 'package:lingkar_budaya/common/resources/fonts.dart';
 
@@ -16,17 +20,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  AuthRepository authRepository = AuthRepository();
+
+  User userData = User();
+
   bool isRegistering = false;
   bool isPasswordVisible = false;
-  PrimaryTextField usernameTextField = PrimaryTextField(placeholder: 'username');
-  PrimaryTextField emailTextField = PrimaryTextField(placeholder: 'email');
-  PrimaryTextField nameTextField = PrimaryTextField(placeholder: 'nama lengkap');
-  SecuredTextField passwordTextField = SecuredTextField(placeholder: 'password');
 
   @override
   void initState() {
     super.initState();
-    // isRegistering = widget.isRegistering;
     isRegistering = widget.isRegistering;
   }
 
@@ -37,67 +40,73 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SafeArea(
+        children: [
+          SafeArea(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: Colors.white,),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-
-            const SizedBox(height: 16,),
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                isRegistering ? 'Daftar' : 'Login',
-                style: Poppins.bold(24, color: Colors.white),
-              ),
-            ),
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                isRegistering ? 'Buat akunmu sekarang juga!' : 'Selamat datang di Lingkar Budaya',
-                style: Poppins.regular(14, color: Colors.white),
-              ),
-            ),
-
-              ],)
-            ),
-
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16)
-                  ),
                 ),
-                child: Padding(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  isRegistering ? 'Daftar' : 'Login',
+                  style: Poppins.bold(24, color: Colors.white),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  isRegistering
+                      ? 'Buat akunmu sekarang juga!'
+                      : 'Selamat datang di Lingkar Budaya',
+                  style: Poppins.regular(14, color: Colors.white),
+                ),
+              ),
+            ],
+          )),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16)),
+              ),
+              child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(children: [
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      child: isRegistering ? _buildRegisterView() : _buildLoginView(),
-                    ),
-            
-                    SizedBox(height: 20,),
-            
-                    PrimaryButton(
-                      text: isRegistering ? 'Daftar' : 'Login',
-                      onTap: () {
-                        currentTab = 0;
-                        Navigator.of(context).pushNamed(AppRouter.navigationBar);
-                      },
-                    ),
-                      
+                  child: Column(
+                    children: [
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        child: isRegistering
+                            ? _buildRegisterView()
+                            : _buildLoginView(),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      PrimaryButton(
+                        text: isRegistering ? 'Daftar' : 'Login',
+                        onTap: () {
+                          currentTab = 0;
+                          isRegistering
+                              ? registerUser()
+                              : Navigator.of(context)
+                                  .pushNamed(AppRouter.navigationBar);
+                        },
+                      ),
                       Expanded(
                         child: Align(
                           alignment: Alignment.bottomCenter,
@@ -105,18 +114,23 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                isRegistering ? 'Sudah memiliki akun?' : 'Belum memiliki akun?',
-                                style: Poppins.regular(14, color: BaseColors.black2),
+                                isRegistering
+                                    ? 'Sudah memiliki akun?'
+                                    : 'Belum memiliki akun?',
+                                style: Poppins.regular(14,
+                                    color: BaseColors.black2),
                               ),
-                                            
                               TextButton(
                                 child: Text(
                                   isRegistering ? 'Login' : 'Daftar Sekarang',
-                                  style: Poppins.bold(14, color: BaseColors.softBrown, underline: true),
+                                  style: Poppins.bold(14,
+                                      color: BaseColors.softBrown,
+                                      underline: true),
                                 ),
                                 onPressed: () {
                                   setState(() {
-                                    this.isRegistering = isRegistering ? false : true;
+                                    this.isRegistering =
+                                        isRegistering ? false : true;
                                   });
                                 },
                               ),
@@ -124,15 +138,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-            
-                    SizedBox(height: 20,),
-                  ],)
-                ),
-              ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  )),
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildLoginView() {
@@ -146,21 +161,19 @@ class _LoginScreenState extends State<LoginScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        usernameTextField,
-
-        SizedBox(height: 16,),
-
-        passwordTextField,
-
+        buildUsernameTextField(),
+        SizedBox(
+          height: 16,
+        ),
+        buildPasswordField(),
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            onPressed: () {}, 
-            child: Text(
-              'Lupa Kata Sandi?',
-              style: Poppins.bold(14, color: BaseColors.softBrown),
-            )
-          ),
+              onPressed: () {},
+              child: Text(
+                'Lupa Kata Sandi?',
+                style: Poppins.bold(14, color: BaseColors.softBrown),
+              )),
         ),
       ],
     );
@@ -177,14 +190,188 @@ class _LoginScreenState extends State<LoginScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        nameTextField,
-        SizedBox(height: 16,),
-        usernameTextField,
-        SizedBox(height: 16,),
-        emailTextField,
-        SizedBox(height: 16,),
-        passwordTextField,
+        buildNameTextField(),
+        SizedBox(
+          height: 16,
+        ),
+        buildUsernameTextField(),
+        SizedBox(
+          height: 16,
+        ),
+        buildEmailTextField(),
+        SizedBox(
+          height: 16,
+        ),
+        buildPasswordField(),
       ],
     );
+  }
+
+  void _showDialog(String title, String description,
+      {String buttonText = 'Okay', bool isError = false, Function? action}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          alignment: Alignment.center,
+          icon: Icon(
+            isError ? Icons.warning : Icons.task_alt,
+            size: 80,
+          ),
+          iconColor: isError ? Colors.red : Colors.green,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Text(
+            title,
+            style: Poppins.bold(20),
+            textAlign: TextAlign.center,
+          ),
+          content: Text(
+            description,
+            style: Poppins.regular(14),
+            textAlign: TextAlign.center,
+          ),
+          insetPadding: EdgeInsets.all(20),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+              child: PrimaryButton(
+                text: buttonText,
+                onTap: () {
+                  Navigator.pop(context);
+                  action!();
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget buildUsernameTextField() {
+    return Container(
+      height: 54,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(60),
+        color: BaseColors.inputGrey,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Center(
+        child: TextField(
+          onChanged: (value) {
+            setState(() {
+              userData.username = value;
+            });
+          },
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'username',
+          ),
+          style: Poppins.regular(14),
+        ),
+      ),
+    );
+  }
+
+  Widget buildNameTextField() {
+    return Container(
+      height: 54,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(60),
+        color: BaseColors.inputGrey,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Center(
+        child: TextField(
+          onChanged: (value) {
+            setState(() {
+              userData.name = value;
+            });
+          },
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'nama lengkap',
+          ),
+          style: Poppins.regular(14),
+        ),
+      ),
+    );
+  }
+
+  Widget buildEmailTextField() {
+    return Container(
+      height: 54,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(60),
+        color: BaseColors.inputGrey,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Center(
+        child: TextField(
+          onChanged: (value) {
+            setState(() {
+              userData.email = value;
+            });
+          },
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'email',
+          ),
+          style: Poppins.regular(14),
+        ),
+      ),
+    );
+  }
+
+  Widget buildPasswordField() {
+    return Container(
+      height: 54,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(60),
+        color: BaseColors.inputGrey,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Center(
+        child: TextField(
+          onChanged: (value) {
+            setState(() {
+              userData.password = value;
+            });
+          },
+          obscureText: !isPasswordVisible,
+          style: Poppins.regular(14),
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'password',
+            suffixIcon: IconButton(
+              icon: Icon(
+                isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                color: Colors.grey,
+              ),
+              onPressed: () {
+                setState(() {
+                  isPasswordVisible = !isPasswordVisible;
+                });
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void registerUser() {
+    authRepository.register(userData, () {
+      _showDialog('Registrasi Berhasil!',
+          'Yeaay kamu berhasil mendaftarkan akun di Lingkar Budaya!',
+          action: () {
+        authRepository.storeLocalUser(userData);
+        currentTab = 0;
+        Navigator.of(context).pushNamed(AppRouter.navigationBar);
+      });
+    }, () {}).then((value) {});
   }
 }

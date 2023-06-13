@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lingkar_budaya/common/Core/router.dart';
+import 'package:lingkar_budaya/common/data/model/user.dart';
+import 'package:lingkar_budaya/common/data/repository/auth_repository.dart';
 import 'package:lingkar_budaya/feature/navigation_bar/navigation_bar.dart';
 import 'package:lingkar_budaya/feature/onboarding/onboarding.dart';
 
@@ -7,9 +9,34 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  MyApp({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  MyApp({Key? key}) : super(key: key);
+
+  AuthRepository authRepository = AuthRepository();
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    authRepository.getLocalUser().then((value) {
+      setState(() {
+        user = value;
+        print('Current User Data');
+        print(user);
+      });
+    }).catchError((error) {
+      print(error);
+    });
+  }
 
   // This widget is the root of your application.
   @override
@@ -18,7 +45,7 @@ class MyApp extends StatelessWidget {
       title: "Lingkar Budaya",
       navigatorKey: navigatorKey,
       onGenerateRoute: AppRouter.generateRoute,
-      home: OnboardingView(),
+      home: user != null ? AppNavigationBar() : OnboardingView(),
     );
   }
 }

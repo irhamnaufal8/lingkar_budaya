@@ -38,6 +38,7 @@ dependencies:
   flutter_svg: ^0.22.0
   webview_flutter: ^2.0.13
   http: ^0.13.5
+  shared_preferences: ^2.0.12
 
 dev_dependencies:
   flutter_test:
