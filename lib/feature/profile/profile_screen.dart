@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lingkar_budaya/common/Core/constants.dart';
 import 'package:lingkar_budaya/common/Core/router.dart';
+import 'package:lingkar_budaya/common/components/button/primary_button.dart';
+import 'package:lingkar_budaya/common/components/button/secondary_button.dart';
 import 'package:lingkar_budaya/common/data/model/user.dart';
 import 'package:lingkar_budaya/common/data/repository/auth_repository.dart';
 import 'package:lingkar_budaya/common/resources/colors.dart';
@@ -147,9 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.transparent),
                 child: InkWell(
                   onTap: () {
-                    authRepository.deleteLocalUser().then((value) {
-                      Navigator.popUntil(context, (route) => route.isFirst);
-                    });
+                    _showDialog();
                   },
                   borderRadius: BorderRadius.circular(50),
                   splashColor: Colors.grey.withOpacity(0.7),
@@ -187,5 +187,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }).catchError((error) {
       print(error);
     });
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          alignment: Alignment.center,
+          icon: Icon(
+            Icons.warning,
+            size: 80,
+          ),
+          iconColor: BaseColors.softBrown,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Text(
+            'Log out?',
+            style: Poppins.bold(20),
+            textAlign: TextAlign.center,
+          ),
+          content: Text(
+            'Apakah kamu yakin untuk log out? Kamu harus login kembali untuk menggunakan aplikasi Lingkar Budaya.',
+            style: Poppins.regular(14),
+            textAlign: TextAlign.center,
+          ),
+          insetPadding: EdgeInsets.all(20),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+              child: PrimaryButton(
+                text: 'Log out',
+                onTap: () {
+                  authRepository.deleteLocalUser().then((value) {
+                    Navigator.pop(context);
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                  });
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+              child: SecondaryButton(
+                text: "Batal",
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 }

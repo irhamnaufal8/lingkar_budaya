@@ -21,23 +21,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  AuthRepository authRepository = AuthRepository();
-  User? user;
-
-  @override
-  void initState() {
-    super.initState();
-    authRepository.getLocalUser().then((value) {
-      setState(() {
-        user = value;
-        print('Current User Data');
-        print(user);
-      });
-    }).catchError((error) {
-      print(error);
-    });
-  }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -45,7 +28,7 @@ class _MyAppState extends State<MyApp> {
       title: "Lingkar Budaya",
       navigatorKey: navigatorKey,
       onGenerateRoute: AppRouter.generateRoute,
-      home: user != null ? AppNavigationBar() : OnboardingView(),
+      home: OnboardingView(),
     );
   }
 }
