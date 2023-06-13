@@ -6,6 +6,7 @@ import 'package:lingkar_budaya/feature/materi/materi_screen.dart';
 import 'package:lingkar_budaya/feature/materi/quiz_screen.dart';
 import 'package:lingkar_budaya/feature/navigation_bar/navigation_bar.dart';
 import 'package:lingkar_budaya/feature/onboarding/onboarding.dart';
+import 'package:lingkar_budaya/feature/profile/edit_profile_screen.dart';
 import 'package:lingkar_budaya/feature/profile/faq_screen.dart';
 import 'package:lingkar_budaya/feature/profile/profile_screen.dart';
 import 'package:lingkar_budaya/feature/testimoni/testimoni_screen.dart';
@@ -20,8 +21,10 @@ class AppRouter {
   static const faq = '/faq';
   static const detailMateri = '/detail_materi';
   static const quiz = '/quiz';
+  static const editProfile = '/edit_profile';
 
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic> generateRoute(RouteSettings settings,
+      {Function? onPreviousViewAppear}) {
     switch (settings.name) {
       case login:
         final bool isRegistering = settings.arguments as bool;
@@ -50,6 +53,8 @@ class AppRouter {
       case quiz:
         final DummyMateriData data = settings.arguments as DummyMateriData;
         return MaterialPageRoute(builder: (_) => QuizScreen(data: data));
+      case editProfile:
+        return MaterialPageRoute(builder: (_) => EditProfileScreen());
       default:
         final bool isRegistering = settings.arguments as bool;
         return MaterialPageRoute(
@@ -60,4 +65,3 @@ class AppRouter {
 }
 
 int currentTab = 0;
-bool isLoggedIn = false;

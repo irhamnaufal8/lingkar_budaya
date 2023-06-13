@@ -28,165 +28,186 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
         backgroundColor: BaseColors.primaryGreen,
         body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-              SizedBox(
-                height: 20,
-              ),
-              Image.asset(
-                'assets/icon/ic_default_avatar.png',
-                width: 100,
-                height: 100,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          child: RefreshIndicator(
+            onRefresh: refreshUserData,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: ListView(
+                physics: AlwaysScrollableScrollPhysics(),
                 children: [
-                  Text(
-                    userData?.name ?? '',
-                    style: Poppins.bold(22, color: Colors.white),
+                  SizedBox(
+                    height: 20,
                   ),
-                  IconButton(
-                      onPressed: () {
-                        print('edit tapped');
-                      },
-                      icon: Image.asset(
-                        'assets/icon/ic_white-edit.png',
-                        width: 24,
-                        height: 24,
-                        fit: BoxFit.fitWidth,
-                      ))
-                ],
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              Container(
-                height: 54,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                      onTap: () {},
+                  Image.asset(
+                    'assets/icon/ic_default_avatar.png',
+                    width: 100,
+                    height: 100,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        userData?.name ?? '',
+                        style: Poppins.bold(22, color: Colors.white),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(AppRouter.editProfile);
+                          },
+                          icon: Image.asset(
+                            'assets/icon/ic_white-edit.png',
+                            width: 24,
+                            height: 24,
+                            fit: BoxFit.fitWidth,
+                          ))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Container(
+                    height: 54,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(6),
-                      splashColor: Colors.grey.withOpacity(0.7),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              'assets/icon/ic_people.png',
-                              width: 20,
-                              height: 20,
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                          onTap: () {},
+                          borderRadius: BorderRadius.circular(6),
+                          splashColor: Colors.grey.withOpacity(0.7),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  'assets/icon/ic_people.png',
+                                  width: 20,
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'About Us',
+                                  style: Poppins.bold(14),
+                                )
+                              ],
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'About Us',
-                              style: Poppins.bold(14),
-                            )
-                          ],
-                        ),
-                      )),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 54,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(AppRouter.faq);
-                      },
-                      borderRadius: BorderRadius.circular(6),
-                      splashColor: Colors.grey.withOpacity(0.7),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              'assets/icon/ic_faq.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'FAQ',
-                              style: Poppins.bold(14),
-                            )
-                          ],
-                        ),
-                      )),
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                height: 54,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(color: Colors.white),
-                    color: Colors.transparent),
-                child: InkWell(
-                  onTap: () {
-                    _showDialog();
-                  },
-                  borderRadius: BorderRadius.circular(50),
-                  splashColor: Colors.grey.withOpacity(0.7),
-                  child: Center(
-                    child: Text(
-                      'Log out',
-                      style: Poppins.bold(14, color: Colors.white),
+                          )),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 54,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(AppRouter.faq);
+                          },
+                          borderRadius: BorderRadius.circular(6),
+                          splashColor: Colors.grey.withOpacity(0.7),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  'assets/icon/ic_faq.png',
+                                  width: 20,
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'FAQ',
+                                  style: Poppins.bold(14),
+                                )
+                              ],
+                            ),
+                          )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                    height: 54,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: Colors.white),
+                        color: Colors.transparent),
+                    child: InkWell(
+                      onTap: () {
+                        _showDialog();
+                      },
+                      borderRadius: BorderRadius.circular(50),
+                      splashColor: Colors.grey.withOpacity(0.7),
+                      child: Center(
+                        child: Text(
+                          'Log out',
+                          style: Poppins.bold(14, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 80,
+                  ),
+                  Expanded(
+                      child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      'Lingkar Budaya Version 1.0',
+                      style: Poppins.medium(14, color: Colors.white),
+                    ),
+                  )),
+                  SizedBox(
+                    height: 40,
+                  )
+                ],
               ),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  'Lingkar Budaya Version 1.0',
-                  style: Poppins.medium(14, color: Colors.white),
-                ),
-              )),
-              SizedBox(
-                height: 40,
-              )
-            ]),
+            ),
           ),
         ));
   }
 
   void getLocalUser() {
     authRepository.getLocalUser().then((value) {
-      setState(() {
-        userData = value;
-        print('Current User Data');
-        print(userData);
+      authRepository.getUserData(value?.username ?? '').then((remoteValue) {
+        authRepository.updateLocalUser(remoteValue).then((_) {
+          authRepository.getLocalUser().then((newValue) {
+            setState(() {
+              userData = newValue;
+              print('Current User Data');
+              print(newValue);
+            });
+          }).catchError((error) {
+            print(error);
+          });
+        });
       });
     }).catchError((error) {
       print(error);
     });
+  }
+
+  Future<void> refreshUserData() async {
+    getLocalUser();
   }
 
   void _showDialog() {

@@ -5,8 +5,7 @@ import 'package:lingkar_budaya/common/data/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository {
-  Future<User> register(
-      User body, Function()? onSuccess, Function()? onFailure) async {
+  Future<User> register(User body) async {
     var url = Uri.parse('$baseURL/users');
     var header = {'Content-Type': 'application/json'};
     var request = jsonEncode({
@@ -20,16 +19,33 @@ class AuthRepository {
     print(request);
     print(response.statusCode);
 
-    User userData = User();
-    if (response.statusCode == 201) {
-      onSuccess!();
-      print(userData);
-      return userData;
-    } else {
-      onFailure!();
-      print(userData);
-      return userData;
-    }
+    var jsonData = jsonDecode(response.body);
+    User userData = User.fromJson(jsonData['data']);
+    print('JSON DATA');
+    print(jsonData);
+    print('REGISTER RESPONSE');
+    print(userData);
+
+    return userData;
+  }
+
+  Future<User> getUserData(String username) async {
+    var response = await http.get(Uri.parse('$baseURL/users/$username'));
+    var jsonData = jsonDecode(response.body);
+
+    User user = User.fromJson(jsonData['data']);
+    return user;
+  }
+
+  Future<void> editUser(int id, {String? name, String? password}) async {
+    var url = Uri.parse('$baseURL/users/$id');
+    var header = {'Content-Type': 'application/json'};
+    var request = jsonEncode({
+      'name': name,
+      'password': password,
+    });
+
+    await http.put(url, headers: header, body: request);
   }
 
   Future<void> storeLocalUser(User user) async {
@@ -37,6 +53,26 @@ class AuthRepository {
     String userJson = json.encode(user.toJson());
     print(userJson);
     prefs.setString('user', userJson);
+  }
+
+  Future<void> updateLocalUser(User updatedUser) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userJson = prefs.getString('user');
+
+    if (userJson != null) {
+      User existingUser = User.fromJson(json.decode(userJson));
+
+      if (updatedUser.name != null) {
+        existingUser.name = updatedUser.name;
+      }
+
+      if (updatedUser.password != null) {
+        existingUser.password = updatedUser.password;
+      }
+      String updatedUserJson = json.encode(existingUser.toJson());
+
+      prefs.setString('user', updatedUserJson);
+    }
   }
 
   Future<User?> getLocalUser() async {

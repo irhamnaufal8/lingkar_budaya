@@ -364,14 +364,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void registerUser() {
-    authRepository.register(userData, () {
+    authRepository.register(userData).then((value) {
+      authRepository.storeLocalUser(value);
       _showDialog('Registrasi Berhasil!',
           'Yeaay kamu berhasil mendaftarkan akun di Lingkar Budaya!',
           action: () {
-        authRepository.storeLocalUser(userData);
         currentTab = 0;
         Navigator.of(context).pushNamed(AppRouter.navigationBar);
       });
-    }, () {}).then((value) {});
+    });
   }
 }
