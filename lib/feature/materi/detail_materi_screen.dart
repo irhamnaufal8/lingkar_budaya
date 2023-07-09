@@ -7,7 +7,7 @@ import 'package:lingkar_budaya/feature/materi/materi_screen.dart';
 class DetailMateriScreen extends StatefulWidget {
   DummyMateriData data;
 
-  DetailMateriScreen({required this.data});
+  DetailMateriScreen({super.key, required this.data});
 
   @override
   State<DetailMateriScreen> createState() =>
@@ -37,7 +37,7 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
 
   Widget buildContent() {
     return Padding(
-      padding: EdgeInsets.only(top: 260, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 260, left: 20, right: 20),
       child: SingleChildScrollView(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,14 +46,14 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
             data.name,
             style: Poppins.bold(20),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(
             data.description,
             style: Poppins.regular(14, italic: true),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Column(
@@ -61,7 +61,7 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(6)),
                       color: BaseColors.inputGrey),
                   child: Material(
@@ -70,10 +70,11 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
                       splashColor: Colors.white.withOpacity(0.7),
                       onTap: () {
                         print('Tap Artikel ${index + 1}');
+                        // Navigator.of(context).pushNamed(AppRouter.artikel);
                       },
                       borderRadius: BorderRadius.circular(6),
                       child: Padding(
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         child: Row(
                           children: [
                             Image.asset(
@@ -81,7 +82,7 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
                               width: 20,
                               height: 20,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(
@@ -102,7 +103,7 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(6)),
                       color: BaseColors.inputGrey),
                   child: Material(
@@ -115,7 +116,7 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
                       },
                       borderRadius: BorderRadius.circular(6),
                       child: Padding(
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         child: Row(
                           children: [
                             Image.asset(
@@ -123,7 +124,7 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
                               width: 20,
                               height: 20,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(
@@ -147,7 +148,7 @@ class _DetailMateriScreenState extends State<DetailMateriScreen> {
   Widget buildBackButton() {
     return SafeArea(
       child: IconButton(
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {
           Navigator.pop(context);
         },

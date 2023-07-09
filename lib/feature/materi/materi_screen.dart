@@ -21,6 +21,8 @@ class DummyMateriData {
 }
 
 class MateriScreen extends StatefulWidget {
+  const MateriScreen({super.key});
+
   @override
   _MateriScreenState createState() => _MateriScreenState();
 }
@@ -32,7 +34,7 @@ class _MateriScreenState extends State<MateriScreen> {
         name: 'Sumatera Utara',
         description:
             '“Unang hosom roham tujolma nahasea, ala dang taboto aha na dikorbanhon lao mencapai hasonangon i”',
-        totalArticle: 2,
+        totalArticle: 1,
         totalQuiz: 1,
         quizURL: 'https://forms.gle/WFMjaL4A2RHtNw9u8'),
     DummyMateriData(
@@ -40,7 +42,7 @@ class _MateriScreenState extends State<MateriScreen> {
         name: 'DKI Jakarta',
         description:
             '“Kalo emang ente mau nantangin, eh aye sanggup biar ada perlawanan.”',
-        totalArticle: 2,
+        totalArticle: 1,
         totalQuiz: 1,
         quizURL: 'https://forms.gle/yKisQhoyP7mQ9LsC8'),
     DummyMateriData(
@@ -48,7 +50,7 @@ class _MateriScreenState extends State<MateriScreen> {
         name: 'Jawa Tengah',
         description:
             '“Unang hosom roham tujolma nahasea, ala dang taboto aha na dikorbanhon lao mencapai hasonangon i”',
-        totalArticle: 2,
+        totalArticle: 1,
         totalQuiz: 1,
         quizURL: 'https://forms.gle/FkK1zHGh9K8sDSqc7'),
     DummyMateriData(
@@ -56,7 +58,7 @@ class _MateriScreenState extends State<MateriScreen> {
         name: 'Papua',
         description:
             '“Unang hosom roham tujolma nahasea, ala dang taboto aha na dikorbanhon lao mencapai hasonangon i”',
-        totalArticle: 2,
+        totalArticle: 1,
         totalQuiz: 1,
         quizURL: 'https://forms.gle/guHEKc3ru9QSTxGk9'),
   ];
@@ -70,7 +72,8 @@ class _MateriScreenState extends State<MateriScreen> {
           Align(
             alignment: Alignment.center,
             child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: Text(
                   'Materi Pembelajaran',
                   style: Poppins.bold(24, color: Colors.white),
@@ -81,8 +84,8 @@ class _MateriScreenState extends State<MateriScreen> {
                 itemCount: dummyData.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
                       child: InkWell(
                           onTap: () {
                             Navigator.of(context).pushNamed(
@@ -99,11 +102,11 @@ class _MateriScreenState extends State<MateriScreen> {
 
   Widget buildCard(DummyMateriData data) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -116,7 +119,7 @@ class _MateriScreenState extends State<MateriScreen> {
               ),
             ),
             Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
                   data.name,
                   style: Poppins.bold(16),
@@ -126,11 +129,11 @@ class _MateriScreenState extends State<MateriScreen> {
               height: 1,
               width: double.infinity,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
                   Row(
@@ -140,7 +143,7 @@ class _MateriScreenState extends State<MateriScreen> {
                         width: 20,
                         height: 20,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
@@ -149,7 +152,7 @@ class _MateriScreenState extends State<MateriScreen> {
                       )
                     ],
                   ),
-                  Expanded(child: SizedBox()),
+                  const Expanded(child: SizedBox()),
                   Row(
                     children: [
                       Image.asset(
@@ -157,7 +160,7 @@ class _MateriScreenState extends State<MateriScreen> {
                         width: 20,
                         height: 20,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(

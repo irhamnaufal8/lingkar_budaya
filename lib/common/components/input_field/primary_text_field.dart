@@ -5,14 +5,14 @@ import 'package:lingkar_budaya/common/resources/fonts.dart';
 class PrimaryTextField extends StatefulWidget {
   final String placeholder;
 
-  PrimaryTextField({required this.placeholder});
+  const PrimaryTextField({super.key, required this.placeholder});
 
   @override
   _PrimaryTextFieldState createState() => _PrimaryTextFieldState();
 }
 
 class _PrimaryTextFieldState extends State<PrimaryTextField> {
-  TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   void dispose() {
@@ -28,7 +28,7 @@ class _PrimaryTextFieldState extends State<PrimaryTextField> {
         borderRadius: BorderRadius.circular(60),
         color: BaseColors.inputGrey,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
           onChanged: (value) {

@@ -309,9 +309,9 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///Users/garry/.pub-cache/hosted/pub.dev/win32-5.0.3",
+      "rootUri": "file:///Users/garry/.pub-cache/hosted/pub.dev/win32-3.1.4",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "2.17"
     },
     {
       "name": "xdg_directories",
@@ -332,7 +332,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-06-13T05:02:42.293704Z",
+  "generated": "2023-06-13T11:17:54.246933Z",
   "generator": "pub",
-  "generatorVersion": "3.0.1"
+  "generatorVersion": "3.0.3"
 }

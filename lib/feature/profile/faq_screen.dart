@@ -10,6 +10,8 @@ class FAQ {
 }
 
 class FAQScreen extends StatefulWidget {
+  const FAQScreen({super.key});
+
   @override
   State<FAQScreen> createState() => _FAQScreenState();
 }
@@ -42,7 +44,7 @@ class _FAQScreenState extends State<FAQScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'FAQ',
           style: TextStyle(
               fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
@@ -58,13 +60,13 @@ class _FAQScreenState extends State<FAQScreen> {
               color: BaseColors.primaryGreen,
               width: double.infinity,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 70, vertical: 35),
+                padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 35),
                 child: Image.asset('assets/image/img_faq.png'),
               ),
             ),
             Container(
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16),
@@ -94,7 +96,7 @@ class _FAQScreenState extends State<FAQScreen> {
         elevation: 0,
         shadowColor: Colors.transparent,
         child: ExpansionTile(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(0)),
           ),
           title: Text(

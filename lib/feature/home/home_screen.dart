@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lingkar_budaya/common/Core/router.dart';
 import 'package:lingkar_budaya/common/components/button/primary_button.dart';
 import 'package:lingkar_budaya/common/resources/colors.dart';
 import 'package:lingkar_budaya/common/resources/fonts.dart';
@@ -7,7 +6,7 @@ import 'package:lingkar_budaya/common/resources/fonts.dart';
 class HomeScreen extends StatefulWidget {
   final VoidCallback toScreen;
 
-  HomeScreen(this.toScreen);
+  const HomeScreen(this.toScreen, {super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState(toScreen);
@@ -28,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 25, left: 20, right: 20),
+                  padding: const EdgeInsets.only(top: 20, bottom: 25, left: 20, right: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -37,14 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 34,
                         height: 34,
                       ),
-                      SizedBox(width: 14),
+                      const SizedBox(width: 14),
                       Text('Lingkar Budaya', style: Poppins.bold(15, color: Colors.white),)
                     ],
                   ),
                 ),
 
                 Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                  padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                   child: Image.asset(
                     'assets/image/img_home_banner.png',
                     width: double.infinity,
@@ -56,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: 
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(16),
@@ -70,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Text('Bagaimana Cara Mulai Belajar?', style: Poppins.bold(18),),
 
-                          SizedBox(height: 15,),
+                          const SizedBox(height: 15,),
 
                           Row(
                             children: [
@@ -79,14 +78,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 46,
                                 height: 46,
                               ),
-                              SizedBox(width: 6,),
+                              const SizedBox(width: 6,),
 
                               Text('Buka Menu Pembelajaran', style: Poppins.medium(14),)
                             ],
                           ),
 
                           Padding(
-                            padding: EdgeInsets.only(left: 22, top: 4, bottom: 4),
+                            padding: const EdgeInsets.only(left: 22, top: 4, bottom: 4),
                             child: Container(
                               width: 2,
                               height: 12,
@@ -101,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 46,
                                 height: 46,
                               ),
-                              SizedBox(width: 6,),
+                              const SizedBox(width: 6,),
 
                               Expanded(
                                 child: Text(
@@ -113,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
 
                           Padding(
-                            padding: EdgeInsets.only(left: 22, top: 4, bottom: 4),
+                            padding: const EdgeInsets.only(left: 22, top: 4, bottom: 4),
                             child: Container(
                               width: 2,
                               height: 12,
@@ -129,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 46,
                                 height: 46,
                               ),
-                              SizedBox(width: 6,),
+                              const SizedBox(width: 6,),
 
                               Expanded(
                                 child: Text(

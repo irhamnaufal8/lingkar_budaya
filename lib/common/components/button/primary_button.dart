@@ -8,7 +8,7 @@ class PrimaryButton extends StatelessWidget {
   final bool? isDisable;
   final Function()? onTap;
 
-  PrimaryButton({super.key, required this.text, this.isDisable, this.onTap});
+  const PrimaryButton({super.key, required this.text, this.isDisable, this.onTap});
 
   @override
   Widget build(BuildContext context) {

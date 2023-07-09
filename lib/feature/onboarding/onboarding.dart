@@ -7,6 +7,8 @@ import 'package:lingkar_budaya/common/resources/colors.dart';
 import 'package:lingkar_budaya/common/resources/fonts.dart';
 
 class OnboardingView extends StatefulWidget {
+  const OnboardingView({super.key});
+
   @override
   State<OnboardingView> createState() => _OnboardingViewState();
 }
@@ -42,7 +44,7 @@ class _OnboardingViewState extends State<OnboardingView> {
           Expanded(
             child: Padding(
               padding:
-                  EdgeInsets.only(top: 80, left: 52, right: 52, bottom: 42),
+                  const EdgeInsets.only(top: 80, left: 52, right: 52, bottom: 42),
               child: Image.asset(
                 'assets/image/img_onboarding.png',
                 fit: BoxFit.fitHeight,

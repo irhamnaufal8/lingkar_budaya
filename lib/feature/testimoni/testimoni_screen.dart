@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:lingkar_budaya/common/Core/constants.dart";
 import "package:lingkar_budaya/common/components/button/primary_button.dart";
 import "package:lingkar_budaya/common/components/button/secondary_button.dart";
 import "package:lingkar_budaya/common/data/model/testimoni.dart";
@@ -9,16 +8,9 @@ import "package:lingkar_budaya/common/data/repository/testimoni_repository.dart"
 import "package:lingkar_budaya/common/resources/colors.dart";
 import "package:lingkar_budaya/common/resources/fonts.dart";
 
-class Review {
-  int? id;
-  String? name;
-  int? ratingStar;
-  String? comment;
-
-  Review({this.id, this.name, this.ratingStar, this.comment});
-}
-
 class TestimoniScreen extends StatefulWidget {
+  const TestimoniScreen({super.key});
+
   @override
   _TestimoniScreenState createState() => _TestimoniScreenState();
 }
@@ -57,7 +49,8 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
             Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: Text(
                   "Testimoni",
                   style: Poppins.bold(24, color: Colors.white),
@@ -73,7 +66,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             Expanded(
@@ -83,7 +76,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                     itemCount: testimonies.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 20),
                           child: buildCard(
                               testimonies[testimonies.length - 1 - index]));
@@ -98,11 +91,11 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
 
   Widget buildCard(Testimoni data) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,7 +112,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                               ? BaseColors.softBrown
                               : BaseColors.inActiveGrey,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         )
                       ],
@@ -131,7 +124,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                     alignment: Alignment.centerRight,
                     child: PopupMenuButton<int>(
                         itemBuilder: (context) => [
-                              PopupMenuItem(
+                              const PopupMenuItem(
                                   value: 1,
                                   child: Row(
                                     children: [
@@ -142,7 +135,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                                       Text("Edit")
                                     ],
                                   )),
-                              PopupMenuItem(
+                              const PopupMenuItem(
                                   value: 2,
                                   child: Row(
                                     children: [
@@ -167,7 +160,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                             });
                           }
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.more_horiz,
                           color: BaseColors.black2,
                         )),
@@ -175,14 +168,14 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Text(
               '"${data.comment}"',
               style: Poppins.regular(14, color: BaseColors.black2),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Row(
@@ -192,7 +185,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                   width: 30,
                   height: 30,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
@@ -224,7 +217,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
               heightFactor: 0.8,
               child: SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,27 +228,28 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.cancel,
                             fill: null,
                             color: BaseColors.borderGrey,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       Text(
                         "Nama",
                         style: Poppins.medium(12, color: BaseColors.black2),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Container(
                         decoration: BoxDecoration(
                             color: BaseColors.inputGrey,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
                             border: Border.all(
                                 color: BaseColors.borderGrey, width: 1)),
                         child: Align(
@@ -269,14 +263,14 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 32,
                       ),
                       Text(
                         "Pilih Rating",
                         style: Poppins.medium(12, color: BaseColors.black2),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       Row(
@@ -296,32 +290,34 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                                       ? BaseColors.softBrown
                                       : BaseColors.inActiveGrey,
                                 )),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                           ],
                         );
                       })),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "Tulis Komentar",
                         style: Poppins.medium(12, color: BaseColors.black2),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       Container(
                         height: 290,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
                             border: Border.all(
                                 color: BaseColors.borderGrey, width: 1)),
                         child: SingleChildScrollView(
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: TextField(
+                              autocorrect: false,
                               onChanged: (value) {
                                 setState(() {
                                   testimoniData.comment = value;
@@ -329,7 +325,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                               },
                               maxLines: null,
                               style: Poppins.medium(14),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: 'Tulis komentarmu di sini...',
                                 border: InputBorder.none,
                               ),
@@ -337,7 +333,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       PrimaryButton(
@@ -373,7 +369,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
               heightFactor: 0.8,
               child: SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -389,7 +385,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.cancel,
                               fill: null,
                               color: BaseColors.borderGrey,
@@ -397,20 +393,21 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       Text(
                         "Nama",
                         style: Poppins.medium(12, color: BaseColors.black2),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Container(
                         decoration: BoxDecoration(
                             color: BaseColors.inputGrey,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
                             border: Border.all(
                                 color: BaseColors.borderGrey, width: 1)),
                         child: Align(
@@ -424,14 +421,14 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 32,
                       ),
                       Text(
                         "Pilih Rating",
                         style: Poppins.medium(12, color: BaseColors.black2),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       Row(
@@ -451,32 +448,34 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                                       ? BaseColors.softBrown
                                       : BaseColors.inActiveGrey,
                                 )),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                           ],
                         );
                       })),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "Tulis Komentar",
                         style: Poppins.medium(12, color: BaseColors.black2),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       Container(
                         height: 290,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
                             border: Border.all(
                                 color: BaseColors.borderGrey, width: 1)),
                         child: SingleChildScrollView(
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: TextField(
+                              autocorrect: false,
                               onChanged: (value) {
                                 setState(() {
                                   testimoniData.comment = value;
@@ -484,7 +483,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                               },
                               maxLines: null,
                               style: Poppins.medium(14),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: 'Tulis komentarmu di sini...',
                                 border: InputBorder.none,
                               ),
@@ -492,7 +491,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       PrimaryButton(
@@ -541,8 +540,9 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
             style: Poppins.regular(14),
             textAlign: TextAlign.center,
           ),
-          insetPadding: EdgeInsets.all(20),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          insetPadding: const EdgeInsets.all(20),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
@@ -565,7 +565,7 @@ class _TestimoniScreenState extends State<TestimoniScreen> {
                       },
                     ),
                   )
-                : Container(
+                : const SizedBox(
                     width: 0,
                     height: 0,
                   ),

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lingkar_budaya/common/Core/constants.dart';
 import 'package:lingkar_budaya/common/Core/router.dart';
 import 'package:lingkar_budaya/common/components/button/primary_button.dart';
-import 'package:lingkar_budaya/common/components/button/secondary_button.dart';
-import 'package:lingkar_budaya/common/components/input_field/primary_text_field.dart';
-import 'package:lingkar_budaya/common/components/input_field/secured_text_field.dart';
 import 'package:lingkar_budaya/common/data/model/user.dart';
 import 'package:lingkar_budaya/common/data/repository/auth_repository.dart';
 import 'package:lingkar_budaya/common/resources/colors.dart';
@@ -13,7 +9,7 @@ import 'package:lingkar_budaya/common/resources/fonts.dart';
 class LoginScreen extends StatefulWidget {
   final bool isRegistering;
 
-  LoginScreen({required this.isRegistering});
+  const LoginScreen({super.key, required this.isRegistering});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -47,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_ios,
                   color: Colors.white,
                 ),
@@ -59,14 +55,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 16,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   isRegistering ? 'Daftar' : 'Login',
                   style: Poppins.bold(24, color: Colors.white),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   isRegistering
                       ? 'Buat akunmu sekarang juga!'
@@ -78,14 +74,14 @@ class _LoginScreenState extends State<LoginScreen> {
           )),
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(16),
                     topRight: Radius.circular(16)),
               ),
               child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
                       AnimatedSwitcher(
@@ -94,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? _buildRegisterView()
                             : _buildLoginView(),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       PrimaryButton(
@@ -129,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 onPressed: () {
                                   setState(() {
-                                    this.isRegistering =
+                                    isRegistering =
                                         isRegistering ? false : true;
                                   });
                                 },
@@ -138,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                     ],
@@ -155,14 +151,15 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
+          padding:
+              const EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
           child: Image.asset(
             'assets/image/img_login.png',
             fit: BoxFit.cover,
           ),
         ),
         buildUsernameTextField(),
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
         buildPasswordField(),
@@ -184,22 +181,23 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
+          padding:
+              const EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
           child: Image.asset(
             'assets/image/img_registration.png',
             fit: BoxFit.cover,
           ),
         ),
         buildNameTextField(),
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
         buildUsernameTextField(),
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
         buildEmailTextField(),
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
         buildPasswordField(),
@@ -232,8 +230,9 @@ class _LoginScreenState extends State<LoginScreen> {
             style: Poppins.regular(14),
             textAlign: TextAlign.center,
           ),
-          insetPadding: EdgeInsets.all(20),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          insetPadding: const EdgeInsets.all(20),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
@@ -258,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(60),
         color: BaseColors.inputGrey,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
           onChanged: (value) {
@@ -266,7 +265,7 @@ class _LoginScreenState extends State<LoginScreen> {
               userData.username = value;
             });
           },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: InputBorder.none,
             hintText: 'username',
           ),
@@ -283,15 +282,16 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(60),
         color: BaseColors.inputGrey,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
+          autocorrect: false,
           onChanged: (value) {
             setState(() {
               userData.name = value;
             });
           },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: InputBorder.none,
             hintText: 'nama lengkap',
           ),
@@ -308,15 +308,16 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(60),
         color: BaseColors.inputGrey,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
+          autocorrect: false,
           onChanged: (value) {
             setState(() {
               userData.email = value;
             });
           },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: InputBorder.none,
             hintText: 'email',
           ),
@@ -333,9 +334,10 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(60),
         color: BaseColors.inputGrey,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
+          autocorrect: false,
           onChanged: (value) {
             setState(() {
               userData.password = value;

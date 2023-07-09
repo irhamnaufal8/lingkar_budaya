@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lingkar_budaya/common/Core/router.dart';
 import 'package:lingkar_budaya/common/components/button/primary_button.dart';
 import 'package:lingkar_budaya/common/data/model/user.dart';
 import 'package:lingkar_budaya/common/data/repository/auth_repository.dart';
@@ -7,6 +6,8 @@ import 'package:lingkar_budaya/common/resources/colors.dart';
 import 'package:lingkar_budaya/common/resources/fonts.dart';
 
 class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
+
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
@@ -17,7 +18,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   User? defaultUser;
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
-  String? confirmPassword = null;
+  String? confirmPassword;
 
   @override
   void initState() {
@@ -30,7 +31,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Edit Profile',
           style: TextStyle(
               fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
@@ -46,7 +47,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               color: BaseColors.primaryGreen,
               width: double.infinity,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 70, vertical: 35),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 70, vertical: 35),
                 child: Column(
                   children: [
                     Image.asset(
@@ -54,7 +56,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       width: 100,
                       height: 100,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                     Text(
@@ -71,7 +73,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
             Container(
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16),
@@ -89,40 +91,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         'Info Personal',
                         style: Poppins.bold(20),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 28,
                       ),
                       Text(
                         'Ubah Nama Lengkap',
                         style: Poppins.regular(14, color: BaseColors.black2),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       buildNameTextField(),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         'Perbarui Password',
                         style: Poppins.regular(14, color: BaseColors.black2),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       buildPasswordField(),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         'Konfirmasi Password',
                         style: Poppins.regular(14, color: BaseColors.black2),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       buildConfirmationPasswordField(),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       !isPasswordSame()
@@ -130,11 +132,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               'Konfirmasi password harus sama',
                               style: Poppins.medium(12, color: Colors.red),
                             )
-                          : Container(
+                          : const SizedBox(
                               height: 0,
                               width: 0,
                             ),
-                      SizedBox(
+                      const SizedBox(
                         height: 34,
                       ),
                       PrimaryButton(
@@ -182,7 +184,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           alignment: Alignment.center,
-          icon: Icon(
+          icon: const Icon(
             Icons.task_alt,
             size: 80,
           ),
@@ -191,7 +193,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             borderRadius: BorderRadius.circular(20),
           ),
           title: Text(
-            'Berhasil Edit Profile?',
+            'Berhasil Edit Profile',
             style: Poppins.bold(20),
             textAlign: TextAlign.center,
           ),
@@ -200,8 +202,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             style: Poppins.regular(14),
             textAlign: TextAlign.center,
           ),
-          insetPadding: EdgeInsets.all(20),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          insetPadding: const EdgeInsets.all(20),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
@@ -226,15 +229,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         borderRadius: BorderRadius.circular(60),
         color: BaseColors.inputGrey,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
+          autocorrect: false,
           onChanged: (value) {
             setState(() {
               user?.name = value;
             });
           },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: InputBorder.none,
             hintText: 'nama lengkap',
           ),
@@ -251,9 +255,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         borderRadius: BorderRadius.circular(60),
         color: BaseColors.inputGrey,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
+          autocorrect: false,
           onChanged: (value) {
             setState(() {
               user?.password = value;
@@ -289,9 +294,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         borderRadius: BorderRadius.circular(60),
         color: BaseColors.inputGrey,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
+          autocorrect: false,
           onChanged: (value) {
             setState(() {
               confirmPassword = value;

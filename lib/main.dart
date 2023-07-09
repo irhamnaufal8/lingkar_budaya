@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lingkar_budaya/common/Core/router.dart';
-import 'package:lingkar_budaya/common/data/model/user.dart';
-import 'package:lingkar_budaya/common/data/repository/auth_repository.dart';
-import 'package:lingkar_budaya/feature/navigation_bar/navigation_bar.dart';
 import 'package:lingkar_budaya/feature/onboarding/onboarding.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({
+  const MyApp({
     Key? key,
   }) : super(key: key);
 
@@ -28,7 +25,7 @@ class _MyAppState extends State<MyApp> {
       title: "Lingkar Budaya",
       navigatorKey: navigatorKey,
       onGenerateRoute: AppRouter.generateRoute,
-      home: OnboardingView(),
+      home: const OnboardingView(),
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class QuizScreen extends StatefulWidget {
   DummyMateriData data;
 
-  QuizScreen({required this.data});
+  QuizScreen({super.key, required this.data});
 
   @override
   State<QuizScreen> createState() => _QuizScreenState(data: data);

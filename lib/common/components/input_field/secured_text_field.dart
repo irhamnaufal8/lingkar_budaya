@@ -5,14 +5,14 @@ import 'package:lingkar_budaya/common/resources/fonts.dart';
 class SecuredTextField extends StatefulWidget {
   final String placeholder;
 
-  SecuredTextField({required this.placeholder});
+  const SecuredTextField({super.key, required this.placeholder});
 
   @override
   _SecuredTextFieldState createState() => _SecuredTextFieldState();
 }
 
 class _SecuredTextFieldState extends State<SecuredTextField> {
-  TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
   bool isVisible = false;
 
   @override
@@ -29,7 +29,7 @@ class _SecuredTextFieldState extends State<SecuredTextField> {
         borderRadius: BorderRadius.circular(60),
         color: BaseColors.inputGrey,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
         child: TextField(
           onChanged: (value) {

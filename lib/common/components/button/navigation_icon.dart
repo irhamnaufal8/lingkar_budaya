@@ -6,7 +6,7 @@ class NavigationIcon extends StatelessWidget {
   final String iconPath;
   final bool isActive;
 
-  NavigationIcon({
+  const NavigationIcon({super.key, 
     required this.iconPath,
     required this.isActive
   });

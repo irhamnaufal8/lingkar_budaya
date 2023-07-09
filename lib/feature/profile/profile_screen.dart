@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lingkar_budaya/common/Core/constants.dart';
 import 'package:lingkar_budaya/common/Core/router.dart';
 import 'package:lingkar_budaya/common/components/button/primary_button.dart';
 import 'package:lingkar_budaya/common/components/button/secondary_button.dart';
@@ -9,6 +8,8 @@ import 'package:lingkar_budaya/common/resources/colors.dart';
 import 'package:lingkar_budaya/common/resources/fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -31,11 +32,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: RefreshIndicator(
             onRefresh: refreshUserData,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
-                physics: AlwaysScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Image.asset(
@@ -63,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ))
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
@@ -80,7 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderRadius: BorderRadius.circular(6),
                           splashColor: Colors.grey.withOpacity(0.7),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -89,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   width: 20,
                                   height: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Text(
@@ -101,7 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           )),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -120,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderRadius: BorderRadius.circular(6),
                           splashColor: Colors.grey.withOpacity(0.7),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -129,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   width: 20,
                                   height: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Text(
@@ -141,7 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           )),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Container(
@@ -165,7 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 80,
                   ),
                   Expanded(
@@ -176,7 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: Poppins.medium(14, color: Colors.white),
                     ),
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   )
                 ],
@@ -216,7 +217,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           alignment: Alignment.center,
-          icon: Icon(
+          icon: const Icon(
             Icons.warning,
             size: 80,
           ),
@@ -234,8 +235,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             style: Poppins.regular(14),
             textAlign: TextAlign.center,
           ),
-          insetPadding: EdgeInsets.all(20),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          insetPadding: const EdgeInsets.all(20),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),

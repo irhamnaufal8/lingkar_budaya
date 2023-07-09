@@ -9,6 +9,8 @@ import 'package:lingkar_budaya/feature/profile/profile_screen.dart';
 import 'package:lingkar_budaya/feature/testimoni/testimoni_screen.dart';
 
 class AppNavigationBar extends StatefulWidget {
+  const AppNavigationBar({super.key});
+
   @override
   _NavigationBarState createState() => _NavigationBarState();
 }
@@ -25,7 +27,7 @@ class _NavigationBarState extends State<AppNavigationBar> {
         setState(() {
           currentTab = 1;
         });
-      }), MateriScreen(), TestimoniScreen(), ProfileScreen()
+      }), const MateriScreen(), const TestimoniScreen(), const ProfileScreen()
     ];
   }
 
@@ -41,7 +43,7 @@ class _NavigationBarState extends State<AppNavigationBar> {
             BoxShadow(
               color: Colors.black.withOpacity(0.08),
               blurRadius: 25.0,
-              offset: Offset(0, -6),
+              offset: const Offset(0, -6),
             ),
           ],
         ),
